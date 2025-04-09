@@ -1,6 +1,7 @@
-import { cryptoAssets, cryptoData } from "./data"
+import { cryptoAssets, cryptoData } from './data'
+import { IAsset, ICrypto } from './types/types'
 
-export function fakeFetchCrypto() {
+export function fakeFetchCrypto(): Promise<{ result: ICrypto[] }> {
     return new Promise(res => {
         setTimeout(() => {
             res(cryptoData)
@@ -8,7 +9,7 @@ export function fakeFetchCrypto() {
     })
 }
 
-export function fetchAssets() {
+export function fetchAssets(): Promise<IAsset[]> {
     return new Promise(res => {
         setTimeout(() => {
             res(cryptoAssets)

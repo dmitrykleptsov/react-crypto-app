@@ -3,6 +3,7 @@ import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { fakeFetchCrypto, fetchAssets } from '../../api'
 import { capitalize, percentDiff } from '../../utils'
+import { IAsset, ICrypto } from '../../types/types'
 
 const siderStyle: React.CSSProperties = {
 	padding: '1rem'
@@ -10,23 +11,24 @@ const siderStyle: React.CSSProperties = {
 
 const AppSider: React.FC = () => {
 	const [loading, setLoading] = useState(false)
-	const [crypto, setCrypto] = useState([])
-	const [assets, setAssets] = useState([])
+	const [crypto, setCrypto] = useState<ICrypto[]>([])
+	const [assets, setAssets] = useState<IAsset[]>([])
 
 	useEffect(() => {
 		async function preload() {
 			setLoading(true)
-			const { result }: { result: [] } = await fakeFetchCrypto()
-			const assets: [] = await fetchAssets()
+			const { result } = await fakeFetchCrypto()
+			const assets = await fetchAssets()
 
 			setAssets(
 				assets.map(asset => {
-					const coin = result.find(item => item.id === asset.id)
+					const coinPrice = result.find(item => item.id === asset.id)?.price ?? asset.price
+					const currentAmount = asset.amount * coinPrice
 					return {
-						grow: asset.price < coin.price,
-						growPercent: percentDiff(asset.price, coin.price),
-						totalAmount: asset.amount * coin.price,
-						totalProfit: asset.amount * coin.price - asset.amount * asset.price,
+						grow: asset.price < coinPrice,
+						growPercent: percentDiff(asset.price, coinPrice),
+						totalAmount: currentAmount,
+						totalProfit: currentAmount - asset.amount * asset.price,
 						...asset
 					}
 				})
@@ -71,7 +73,7 @@ const AppSider: React.FC = () => {
 									{item.isPlain && item.value}
 									{!item.isPlain && (
 										<Typography.Text type={asset.grow ? 'success' : 'danger'}>
-											{item.value.toFixed(2)}$
+											{item.value?.toFixed(2)}$
 										</Typography.Text>
 									)}
 								</span>
