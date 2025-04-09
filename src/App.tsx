@@ -1,17 +1,17 @@
-import React from 'react';
-import { Layout } from 'antd';
-import AppHeader from './components/layout/AppHeader';
-import AppSider from './components/layout/AppSider';
-import AppContent from './components/layout/AppContent';
+import React from 'react'
+import { Layout } from 'antd'
+import AppHeader from './components/layout/AppHeader'
+import AppSider from './components/layout/AppSider'
+import AppContent from './components/layout/AppContent'
 
 const App: React.FC = () => (
 	<Layout>
 		<AppHeader />
-      	<Layout>
+		<Layout>
 			<AppSider />
 			<AppContent />
-      	</Layout>
-    </Layout>
+		</Layout>
+	</Layout>
 )
 
 export default App
