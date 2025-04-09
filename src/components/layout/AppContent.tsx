@@ -8,6 +8,8 @@ const contentStyle: React.CSSProperties = {
 	padding: '1rem'
 }
 
-export default function AppContent() {
+const AppContent: React.FC = () => {
 	return <Layout.Content style={contentStyle}>Content</Layout.Content>
 }
+
+export default AppContent

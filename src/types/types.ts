@@ -1,6 +1,8 @@
 export interface ICrypto {
     id: string
-    price: number
+    price: number,
+    name: string,
+    icon: string
 }
 
 export interface IAsset {
