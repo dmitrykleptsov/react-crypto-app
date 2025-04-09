@@ -13,3 +13,8 @@ export interface IAsset {
     totalAmount?: number
     totalProfit?: number
 } 
+export interface ICryptoContext {
+	crypto: ICrypto[]
+	assets: IAsset[]
+	loading: boolean
+}
