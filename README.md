@@ -6,5 +6,6 @@
 
 -   React
 -   TypeScript
+-   Vite
 -   Ant Design
 -   Context API для управления состоянием
